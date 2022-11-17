@@ -17,7 +17,7 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $participants = Participant::with('user','event')->orderBy('created_at')->get();
+        $participants = Participant::with('user')->orderBy('created_at')->get();
         return view('participant.index', compact('participants'));
     }
 
@@ -92,8 +92,8 @@ class ParticipantController extends Controller
      */
     public function show($id)
     {
-        $participants = Participant::findOrFail($id);
-        return view('participant.index', compact('participants'));
+        $event = Event::findOrFail($id);
+        return view('participant.index', compact('event'));
     }
 
     /**
