@@ -10,7 +10,7 @@ class Participant extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['user','event'];
+    protected $with = ['user'];
 
     public function user()
     {
@@ -19,7 +19,7 @@ class Participant extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'participant_event')->withPivot('event_id')->withTimestamps();
     }
 
     /* public function employees()
