@@ -17,26 +17,33 @@ class ParticipantsImport implements ToCollection, WithHEadingRow
     {
         $event = Event::get()->last();
         foreach ($collection as $row) {
-            $user = User::Create(
+            $user = User::updateOrCreate(
                 [
-                'email'     => $row[5],
-                'name'      => $row[1],
-                'password'  => bcrypt($row[6]),
-                'level_id'  => 2,
+                    'email'     => $row[5]
+                ],
+                [
+                    'email'     => $row[5],
+                    'name'      => $row[1],
+                    'password'  => bcrypt($row[6]),
+                    'level_id'  => 2,
                 ]
             );
 
-            $participant = Participant::Create(
+            $participant = Participant::updateOrCreate(
                 [
-                'phone'         => $row[2],
-                'agency'        => $row[3],
-                'user_id'       => $user->id,
+                    'user_id'       => $user->id
+                ],
+                [
+                    'phone'         => $row[2],
+                    'agency'        => $row[3],
+                    'user_id'       => $user->id,
                 ]
             );
 
             DB::table('participant_event')->insert([
                 'event_id'          => $event->id,
-                'participant_id'    => $participant->id
+                'participant_id'    => $participant->id,
+                'created_at'        => date('Y-m-d H:i:s')
             ]);
         }
     }

@@ -57,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($participants as $participant)
+                                @foreach ($event->participants as $participant)
                                 {{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -78,11 +78,7 @@
                                         <td class="align-middle">{{ $participant->agency }}</td>
                                         <td class="align-middle">
                                             <div class="progress-label">
-                                                <span class="text-primary">
-                                                    @foreach ($participant->events as $item)
-                                                        {{ $item->name."</br>" }}
-                                                    @endforeach
-                                                </span>
+                                                <span class="text-primary">{{ $event->name }}</span>
                                             </div>
                                         </td>
                                         <td class="align-middle text-center">
